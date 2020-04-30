@@ -73,9 +73,9 @@ prompt_sfz_git_dirty() {
     local git_ahead="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d '\n')"
     local git_behind="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d '\n')"
     if [[ $git_ahead -gt 0 ]]; then
-        local git_upstream_diff="%F\[$(prompt_sfz_colors bgreen)\]+$git_ahead"
+        local git_upstream_diff="%F$(prompt_sfz_colors bgreen)+$git_ahead"
     elif [[ $git_behind -gt 0 ]]; then
-        local git_upstream_diff="%F\[$(prompt_sfz_colors bred)\]-$git_behind"
+        local git_upstream_diff="%F$(prompt_sfz_colors bred)-$git_behind"
     else
         local git_upstream_diff=""
     fi
@@ -87,13 +87,13 @@ prompt_sfz_git_dirty() {
     if [[ "${git_status}" ]]; then
         # colorize indicators by status
         local partial_git_status=$(echo "${git_status}%f" | \
-                                   sed -e "s/?/%F\[$(prompt_sfz_colors white)\]?%f/" \
-                                       -e "s/M/%B%F\[$(prompt_sfz_colors byellow)\]M%f%b/" \
-                                       -e "s/A/%B%F\[$(prompt_sfz_colors bgreen)\]A%f%b/" \
-                                       -e "s/D/%B%F\[$(prompt_sfz_colors bred)\]D%f%b/" \
-                                       -e "s/R/%F\[$(prompt_sfz_colors magenta)\]R%f/" \
-                                       -e "s/C/%F\[$(prompt_sfz_colors cyan)\]C%f/" \
-                                       -e "s/U/%B%F\[$(prompt_sfz_colors bblue)\]U%f%b/")
+                                   sed -e "s/?/%F$(prompt_sfz_colors white)?%f/" \
+                                       -e "s/M/%B%F$(prompt_sfz_colors byellow)M%f%b/" \
+                                       -e "s/A/%B%F$(prompt_sfz_colors bgreen)A%f%b/" \
+                                       -e "s/D/%B%F$(prompt_sfz_colors bred)D%f%b/" \
+                                       -e "s/R/%F$(prompt_sfz_colors magenta)R%f/" \
+                                       -e "s/C/%F$(prompt_sfz_colors cyan)C%f/" \
+                                       -e "s/U/%B%F$(prompt_sfz_colors bblue)U%f%b/")
         if [[ -n $prompt_sfz_git_status ]]; then
             prompt_sfz_git_status="${partial_git_status}"
         else
@@ -142,21 +142,21 @@ prompt_sfz_precmd() {
     }
     # print with [ ] and comma separated
     prompt_sfz_jobs=""
-    [[ -n $jobs ]] && prompt_sfz_jobs="%F\[$(prompt_sfz_colors bgrey)\][%F$(prompt_sfz_colors magenta)"${(j:,:)jobs}"%F$(prompt_sfz_colors bgrey)]%f "
+    [[ -n $jobs ]] && prompt_sfz_jobs="%F$(prompt_sfz_colors bgrey)[%F$(prompt_sfz_colors magenta)"${(j:,:)jobs}"%F$(prompt_sfz_colors bgrey)]%f "
 
     local prompt_sfz_head
     local prompt_sfz_tail
-    prompt_sfz_prompt_head="$prompt_sfz_jobs%F\[$(prompt_sfz_colors yellow)\]$prompt_sfz_tmux%F$(prompt_sfz_colors bgrey)$(prompt_sfz_pwd)"
-    prompt_sfz_prompt_tail="%(?..%B%F\[$(prompt_sfz_colors red)\]%?%f%b )%(!.%B%F$(prompt_sfz_colors bblue).%F$(prompt_sfz_colors blue))$PROMPT_SFZ_CHAR%f%b"
+    prompt_sfz_prompt_head="$prompt_sfz_jobs%F$(prompt_sfz_colors yellow)$prompt_sfz_tmux%F$(prompt_sfz_colors bgrey)$(prompt_sfz_pwd)"
+    prompt_sfz_prompt_tail="%(?..%B%F$(prompt_sfz_colors red)%?%f%b )%(!.%B%F$(prompt_sfz_colors bblue).%F$(prompt_sfz_colors blue))$PROMPT_SFZ_CHAR%f%b"
     PROMPT="$prompt_sfz_prompt_head $prompt_sfz_prompt_tail "
     export PROMPT_SFZ_COLORS=\[$prompt_sfz_colors
 
     prompt_sfz_virtualenv=""
     if [[ "$PROMPT_SFZ_VIRTUALENV_DISABLED" == '' && "$VIRTUAL_ENV" != '' ]]; then
-        prompt_sfz_virtualenv=" %f(%B%F\[$(prompt_sfz_colors byellow)\]${VIRTUAL_ENV:t}%f%b)"
+        prompt_sfz_virtualenv=" %f(%B%F$(prompt_sfz_colors byellow)${VIRTUAL_ENV:t}%f%b)"
     fi
 
-    RPROMPT="%B%F\[$(prompt_sfz_colors bmagenta)\]$(prompt_sfz_cmd_exec_time)%f%b%F$(prompt_sfz_colors green)$vcs_info_msg_0_$(prompt_sfz_git_dirty)$prompt_sfz_virtualenv$prompt_sfz_ssh%f"
+    RPROMPT="%B%F$(prompt_sfz_colors bmagenta)$(prompt_sfz_cmd_exec_time)%f%b%F$(prompt_sfz_colors green)$vcs_info_msg_0_$(prompt_sfz_git_dirty)$prompt_sfz_virtualenv$prompt_sfz_ssh%f"
 
     unset cmd_timestamp # reset value since `preexec` isn't always triggered
 }
@@ -176,7 +176,7 @@ prompt_sfz_setup() {
     zstyle ':vcs_info:git*' actionformats ' %b|%a'
 
     if [[ "$SSH_CONNECTION" != '' ]]; then
-        prompt_sfz_ssh=" %F\[$(prompt_sfz_colors bcyan)\]%n@%m%f"
+        prompt_sfz_ssh=" %F$(prompt_sfz_colors bcyan)%n@%m%f"
     fi
     if [[ "$TMUX" != '' ]]; then
         prompt_sfz_tmux=$PROMPT_SFZ_TMUX
