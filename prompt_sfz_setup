@@ -13,22 +13,22 @@ PROMPT_SFZ_PATH_UNTRUNCATED=${PROMPT_SFZ_PATH_UNTRUNCATED-""}
 # represent actual color.
 prompt_sfz_colors () {
     case $1 in
-        grey)     echo "{001}";;
-        bgrey)    echo "{003}";;
-        red)      echo "{011}";;
-        bred)     echo "{011}";;
-        green)    echo "{014}";;
-        bgreen)   echo "{014}";;
-        yellow)   echo "{013}";;
-        byellow)  echo "{013}";;
-        blue)     echo "{009}";;
-        bblue)    echo "{009}";;
-        magenta)  echo "{015}";;
-        bmagenta) echo "{015}";;
-        cyan)     echo "{008}";;
-        bcyan)    echo "{007}";;
-        white)    echo "{005}";;
-        bwhite)   echo "{006}";;
+        grey)     echo "\[$(tput setaf 1)\]";;
+        bgrey)    echo "\[$(tput setaf 3)\]";;
+        red)      echo "\[$(tput setaf 11)\]";;
+        bred)     echo "\[$(tput setaf 11)\]";;
+        green)    echo "\[$(tput setaf 14)\]";;
+        bgreen)   echo "\[$(tput setaf 14)\]";;
+        yellow)   echo "\[$(tput setaf 13)\]";;
+        byellow)  echo "\[$(tput setaf 13)\]";;
+        blue)     echo "\[$(tput setaf 9)\]";;
+        bblue)    echo "\[$(tput setaf 9)\]";;
+        magenta)  echo "\[$(tput setaf 15)\]";;
+        bmagenta) echo "\[$(tput setaf 15)\]";;
+        cyan)     echo "\[$(tput setaf 8)\]";;
+        bcyan)    echo "\[$(tput setaf 7)\]";;
+        white)    echo "\[$(tput setaf 5)\]";;
+        bwhite)   echo "\[$(tput setaf 6)\]";;
     esac
 }
 
